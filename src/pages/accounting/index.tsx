@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Space, Table, Tag, Button } from 'antd';
+import { Space, Table, Tag, Button, Flex } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Head from 'next/head';
 import MainLayout from '@/layouts/MainLayout';
-import AccountModal from '@/components/accounting/AccountModal';
+import AccountShowModal from '@/components/accounting/ShowModal';
+import AccountNewModal from '@/components/accounting/newModal';
 
 interface DataType {
   key: string;
@@ -15,6 +16,12 @@ interface DataType {
 
 const AccountingIndex = () => {
   const [modalData, setModalData] = useState<DataType | null>(null);
+
+  const [isNewModalOpen, setIsNewModalOpen] = useState(false);
+
+  const closeNewModal = () => {
+    setIsNewModalOpen(false);
+  };
 
   const columns: ColumnsType<DataType> = [
     {
@@ -106,8 +113,24 @@ const AccountingIndex = () => {
         <title>所有記帳</title>
       </Head>
       <main>
-        <AccountModal data={modalData} />
-        <Table columns={columns} dataSource={data} />
+        <AccountShowModal data={modalData} />
+        <AccountNewModal
+          isOpen={isNewModalOpen}
+          closeCallBack={closeNewModal}
+        />
+        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+          <Flex gap="middle" align="center" justify="end">
+            <Button
+              type="primary"
+              onClick={() => {
+                setIsNewModalOpen(true);
+              }}
+            >
+              新增記帳
+            </Button>
+          </Flex>
+          <Table columns={columns} dataSource={data} />
+        </Space>
       </main>
     </MainLayout>
   );

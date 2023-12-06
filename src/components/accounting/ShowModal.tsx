@@ -13,7 +13,7 @@ type Props = {
   data: DataType | null;
 };
 
-const AccountModal = ({ data }: Props) => {
+const AccountShowModal = ({ data }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOk = () => {
@@ -43,4 +43,4 @@ const AccountModal = ({ data }: Props) => {
   );
 };
 
-export default AccountModal;
+export default AccountShowModal;

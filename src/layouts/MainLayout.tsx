@@ -5,7 +5,13 @@ import SideBar from '@/components/layouts/SideBar';
 
 const { Header, Sider, Content } = Layout;
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const MainLayout = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const {
@@ -14,22 +20,43 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Layout style={{ minHeight: '100vh', margin: '0px' }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        collapsedWidth="0"
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+      >
         <div className="demo-logo-vertical" />
         <SideBar />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
-          />
+        <Header
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: 0,
+            background: colorBgContainer,
+          }}
+        >
+          <>
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: '16px',
+                width: 64,
+                height: 64,
+              }}
+            />
+            <h2
+              style={{
+                color: 'rgba(0, 0, 0, 0.6)',
+              }}
+            >
+              {title}
+            </h2>
+          </>
         </Header>
         <Content
           style={{

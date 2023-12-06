@@ -41,6 +41,7 @@
         "allowFunctions": true
       }
     ],
+    "jsx-a11y/anchor-is-valid":"off",
     "import/prefer-default-export": "off",
     "no-continue": "off"
   }

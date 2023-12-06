@@ -1,49 +1,56 @@
 import React from 'react';
 import { Menu } from 'antd';
 import type { MenuProps } from 'antd';
+import { useRouter } from 'next/router';
 import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
+  AccountBookOutlined,
+  DashboardOutlined,
+  FolderOpenOutlined,
 } from '@ant-design/icons';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
 const menuItems: MenuItem[] = [
   {
-    key: '1',
-    icon: <UserOutlined />,
-    label: 'nav 1',
-    children: [
-      {
-        key: '1-1',
-        label: 'nav 1-1',
-      },
-      {
-        key: '1-2',
-        label: 'nav 1-2',
-      },
-    ],
+    key: '/',
+    icon: <DashboardOutlined />,
+    label: '儀表板',
   },
   {
-    key: '2',
-    icon: <VideoCameraOutlined />,
-    label: 'nav 2',
+    key: '/accounting',
+    icon: <AccountBookOutlined />,
+    label: '所有記帳',
+    // children: [
+    //   {
+    //     key: '/accounting',
+    //     label: 'nav 1-1',
+    //   },
+    //   {
+    //     key: '/',
+    //     label: 'nav 1-2',
+    //   },
+    // ],
   },
   {
-    key: '3',
-    icon: <UploadOutlined />,
-    label: 'nav 3',
+    key: '/account_type',
+    icon: <FolderOpenOutlined />,
+    label: '類別管理',
   },
 ];
 
 const SideBar = () => {
+  const router = useRouter();
+
   return (
     <Menu
       theme="dark"
       mode="inline"
-      defaultSelectedKeys={['1']}
+      defaultSelectedKeys={[router.asPath]}
+      defaultOpenKeys={[router.asPath.split('/')[1]]}
       items={menuItems}
+      onClick={({ key }) => {
+        router.push(key);
+      }}
     />
   );
 };

@@ -2,18 +2,18 @@ import { Modal, Form, Input, DatePicker, Select } from 'antd';
 
 const { TextArea } = Input;
 
-enum AccountType {
-  'income',
-  'outcome',
-}
+// enum AccountType {
+//   'income',
+//   'outcome',
+// }
 
-interface FormData {
-  title: string;
-  type: AccountType;
-  cost: number;
-  date: Date;
-  description: string;
-}
+// interface FormData {
+//   title: string;
+//   type: AccountType;
+//   cost: number;
+//   date: Date;
+//   description: string;
+// }
 
 type Props = {
   isOpen: boolean;

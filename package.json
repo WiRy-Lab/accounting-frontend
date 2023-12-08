@@ -12,11 +12,14 @@
   "dependencies": {
     "@ant-design/cssinjs": "^1.18.0",
     "@ant-design/icons": "^5.2.6",
+    "@types/faker": "5.5.9",
     "antd": "^5.11.5",
+    "chart.js": "^4.4.1",
+    "faker": "^5.5.3",
     "next": "13.4.7",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-google-charts": "^4.0.1"
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@next/react-refresh-utils": "^13.4.1",

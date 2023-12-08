@@ -4,7 +4,7 @@ import type { ColumnsType } from 'antd/es/table';
 import Head from 'next/head';
 import MainLayout from '@/layouts/MainLayout';
 import AccountShowModal from '@/components/accounting/ShowModal';
-import AccountNewModal from '@/components/accounting/newModal';
+import AccountNewModal from '@/components/accounting/NewModal';
 
 interface DataType {
   key: string;

@@ -48,6 +48,7 @@ const AccountingIndex = () => {
       title: 'Address',
       dataIndex: 'address',
       key: 'address',
+      sorter: (a, b) => a.address.length - b.address.length,
     },
     {
       title: 'Tags',

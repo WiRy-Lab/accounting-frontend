@@ -8,6 +8,10 @@ import {
   FolderOpenOutlined,
 } from '@ant-design/icons';
 
+type Props = {
+  clickCallBack: () => void;
+};
+
 type MenuItem = Required<MenuProps>['items'][number];
 
 const menuItems: MenuItem[] = [
@@ -38,7 +42,7 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-const SideBar = () => {
+const SideBar = ({ clickCallBack }: Props) => {
   const router = useRouter();
 
   return (
@@ -50,6 +54,7 @@ const SideBar = () => {
       items={menuItems}
       onClick={({ key }) => {
         router.push(key);
+        clickCallBack();
       }}
     />
   );

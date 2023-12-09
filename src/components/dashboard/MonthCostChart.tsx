@@ -58,9 +58,9 @@ const { Title } = Typography;
 
 const MonthCostChart = () => {
   return (
-    <Card>
+    <Card style={{ height: '100%' }}>
       <Title level={4} style={{ margin: 0 }}>
-        當月每日消費曲線
+        區間內消費曲線
       </Title>
       <Line options={options} data={data} />
     </Card>

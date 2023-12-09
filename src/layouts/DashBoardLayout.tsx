@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Layout, Button, theme } from 'antd';
 import SideBar from '@/components/layouts/SideBar';
@@ -14,6 +14,20 @@ const DashBoardLayout = ({
 }) => {
   const [collapsed, setCollapsed] = useState(false);
 
+  // if phone set collapsed
+  useEffect(() => {
+    // Client-side-only code
+    if (window.innerWidth < 768) {
+      setCollapsed(true);
+    }
+  }, []);
+
+  const closeSideBar = () => {
+    if (window.innerWidth < 768) {
+      setCollapsed(true);
+    }
+  };
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -27,7 +41,7 @@ const DashBoardLayout = ({
         collapsed={collapsed}
       >
         <div className="demo-logo-vertical" />
-        <SideBar />
+        <SideBar clickCallBack={closeSideBar} />
       </Sider>
       <Layout>
         <Header

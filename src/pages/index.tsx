@@ -1,9 +1,11 @@
 import Head from 'next/head';
 import DashBoardLayout from '@/layouts/DashBoardLayout';
-import { Row, Col } from 'antd';
+import { Row, Col, Space } from 'antd';
 import MonthCostChart from '@/components/dashboard/MonthCostChart';
 import SpendCost from '@/components/dashboard/SpendCost';
 import TypeCostChart from '@/components/dashboard/TypeCostChart';
+import Filter from '@/components/dashboard/Filter';
+import Target from '@/components/dashboard/Target';
 
 export default function Home() {
   return (
@@ -16,13 +18,17 @@ export default function Home() {
       </Head>
       <main>
         <Row gutter={[16, 16]}>
-          <Col span={24} md={16}>
+          <Col span={24} md={16} style={{ height: 'inherit' }}>
             <MonthCostChart />
           </Col>
-          <Col span={24} md={8}>
-            <SpendCost />
+          <Col span={24} md={8} style={{ height: 'inherit ' }}>
+            <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+              <Filter />
+              <SpendCost />
+              <Target />
+            </Space>
           </Col>
-          <Col span={24}>
+          <Col span={24} style={{ height: 'inherit ' }}>
             <TypeCostChart />
           </Col>
         </Row>

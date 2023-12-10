@@ -1,22 +1,22 @@
 import React from 'react';
 import Head from 'next/head';
 import AuthLayout from '@/layouts/AuthLayout';
-import { Form, Input, Button, Checkbox, Card, Typography } from 'antd';
+import { Form, Input, Button, Card, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import type { LoginDTO } from '@/dto/AuthDTO';
+import type { RegisterDTO } from '@/dto/AuthDTO';
 import $api from '@/plugins/api';
 
 const { Title } = Typography;
 
-const Login = () => {
-  const onFinish = async (values: LoginDTO) => {
-    const res = await $api.auth.login(values);
+const Register = () => {
+  const onFinish = async (values: RegisterDTO) => {
+    const res = await $api.auth.register(values);
   };
 
   return (
     <AuthLayout>
       <Head>
-        <title>Login</title>
+        <title>Register</title>
       </Head>
       <main>
         <div
@@ -42,6 +42,35 @@ const Login = () => {
               }}
               onFinish={onFinish}
             >
+              <Form.Item
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your Name!',
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  placeholder="Name"
+                />
+              </Form.Item>
+              <Form.Item
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your Email!',
+                  },
+                ]}
+              >
+                <Input
+                  type="email"
+                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  placeholder="Email"
+                />
+              </Form.Item>
               <Form.Item
                 name="account"
                 rules={[
@@ -71,14 +100,20 @@ const Login = () => {
                   placeholder="Password"
                 />
               </Form.Item>
-              <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-
-                <a className="login-form-forgot" href="">
-                  Forgot password
-                </a>
+              <Form.Item
+                name="password_verify"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your Password angin!',
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="Password again"
+                />
               </Form.Item>
 
               <Form.Item>
@@ -87,9 +122,9 @@ const Login = () => {
                   htmlType="submit"
                   className="login-form-button"
                 >
-                  Log in
+                  Register
                 </Button>
-                Or <a href="">register now!</a>
+                Or <a href="">login now!</a>
               </Form.Item>
             </Form>
           </Card>
@@ -99,4 +134,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

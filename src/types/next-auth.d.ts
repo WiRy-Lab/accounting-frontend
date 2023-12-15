@@ -1,4 +1,5 @@
 /* eslint unused-imports/no-unused-imports: 0 */
+/* eslint @typescript-eslint/no-unused-vars: 0 */
 import NextAuth from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 

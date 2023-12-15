@@ -1,24 +1,39 @@
 import React from 'react';
 import Head from 'next/head';
 import AuthLayout from '@/layouts/AuthLayout';
-import { Form, Input, Button, Checkbox, Card, Typography } from 'antd';
+import { Form, Input, Button, Checkbox, Card, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import type { LoginDTO } from '@/dto/AuthDTO';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 const { Title } = Typography;
 
 const Login = () => {
+  const router = useRouter();
+
+  const [messageApi, contextHolder] = message.useMessage();
+
   const onFinish = async (values: LoginDTO) => {
-    await signIn('credentials', {
+    const result = await signIn('credentials', {
       ...values,
-      redirect: true,
+      redirect: false,
       callbackUrl: '/',
     });
+
+    if (result && result.ok) {
+      router.push('/');
+    } else {
+      messageApi.open({
+        type: 'error',
+        content: 'Login failed!',
+      });
+    }
   };
 
   return (
     <AuthLayout>
+      {contextHolder}
       <Head>
         <title>Login</title>
       </Head>

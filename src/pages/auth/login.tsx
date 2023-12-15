@@ -4,13 +4,17 @@ import AuthLayout from '@/layouts/AuthLayout';
 import { Form, Input, Button, Checkbox, Card, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import type { LoginDTO } from '@/dto/AuthDTO';
-import $api from '@/plugins/api';
+import { signIn } from 'next-auth/react';
 
 const { Title } = Typography;
 
 const Login = () => {
   const onFinish = async (values: LoginDTO) => {
-    const res = await $api.auth.login(values);
+    await signIn('credentials', {
+      ...values,
+      redirect: true,
+      callbackUrl: '/',
+    });
   };
 
   return (

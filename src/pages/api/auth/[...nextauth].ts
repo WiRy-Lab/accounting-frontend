@@ -42,7 +42,7 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    redirect: async ({ url, baseUrl }: { url: string; baseUrl: string }) => {
+    async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
       // / Allows relative callback URLs
       if (url.startsWith('/')) return `${baseUrl}${url}`;
       // Allows callback URLs on the same origin

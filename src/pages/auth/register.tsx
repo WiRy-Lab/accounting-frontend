@@ -1,20 +1,35 @@
 import React from 'react';
 import Head from 'next/head';
 import AuthLayout from '@/layouts/AuthLayout';
-import { Form, Input, Button, Card, Typography } from 'antd';
+import { Form, Input, Button, Card, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import type { RegisterDTO } from '@/dto/AuthDTO';
 import $api from '@/plugins/api';
+import { useRouter } from 'next/router';
 
 const { Title } = Typography;
 
 const Register = () => {
+  const router = useRouter();
+
+  const [messageApi, contextHolder] = message.useMessage();
+
   const onFinish = async (values: RegisterDTO) => {
     const res = await $api.auth.register(values);
+
+    if (res && res.status === 200) {
+      router.push('/api/auth/login');
+    } else {
+      messageApi.open({
+        type: 'error',
+        content: 'Please check your input!',
+      });
+    }
   };
 
   return (
     <AuthLayout>
+      {contextHolder}
       <Head>
         <title>Register</title>
       </Head>

@@ -16,6 +16,7 @@
     "next/core-web-vitals"
   ],
   "plugins": ["simple-import-sort", "unused-imports"],
+  "ignorePatterns": ["next-auth.d.ts"],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
     "react/jsx-props-no-spreading": "off",

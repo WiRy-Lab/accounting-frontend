@@ -1,12 +1,9 @@
+import type { CategoryDTO } from '@/dto/CategoryDTO';
+
 type AccountingFilterDTO = {
   from?: string;
   end?: string;
   category?: string;
-};
-
-type Category = {
-  id: number;
-  name: string;
 };
 
 type AccountingDTO = {
@@ -14,7 +11,14 @@ type AccountingDTO = {
   type: string;
   amount: number;
   date: string;
-  category: Category[];
+  category: CategoryDTO[];
+};
+
+type AccountingCreateDTO = {
+  type: string;
+  amount: number;
+  date: string;
+  category: CategoryDTO[];
 };
 
 type AccountingListDTO = {
@@ -23,4 +27,9 @@ type AccountingListDTO = {
   data: AccountingDTO[];
 };
 
-export type { AccountingDTO, AccountingFilterDTO, AccountingListDTO };
+export type {
+  AccountingDTO,
+  AccountingCreateDTO,
+  AccountingFilterDTO,
+  AccountingListDTO,
+};

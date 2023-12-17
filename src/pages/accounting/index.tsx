@@ -103,7 +103,11 @@ const AccountingIndex = () => {
               新增記帳
             </Button>
           </Flex>
-          <Table columns={columns} dataSource={data?.data} />
+          <Table
+            columns={columns}
+            dataSource={data?.data}
+            rowKey={(record) => record.id}
+          />
         </Space>
       </main>
     </MainLayout>

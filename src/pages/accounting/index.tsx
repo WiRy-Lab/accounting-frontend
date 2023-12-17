@@ -1,38 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Space, Table, Tag, Button, Flex } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Head from 'next/head';
 import MainLayout from '@/layouts/MainLayout';
 import AccountShowModal from '@/components/accounting/ShowModal';
 import AccountNewModal from '@/components/accounting/NewModal';
+import { AccountingListDTO, AccountingDTO } from '@/dto/AccountingDTO';
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
+import $api from '@/plugins/api';
 
 const AccountingIndex = () => {
-  const [modalData, setModalData] = useState<DataType | null>(null);
+  const [modalData, setModalData] = useState<AccountingDTO | null>(null);
+
+  const [data, setData] = useState<AccountingListDTO | null>(null);
 
   const [isNewModalOpen, setIsNewModalOpen] = useState(false);
 
-  const closeNewModal = () => {
+  const [isShowModalOpen, setIsShowModalOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await $api.accounting.all();
+
+      setData(result);
+    };
+
+    fetchData();
+  }, [isNewModalOpen]);
+
+  const closeModal = () => {
     setIsNewModalOpen(false);
+    setIsShowModalOpen(false);
+    setModalData(null);
   };
 
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<AccountingDTO> = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: '項目',
+      dataIndex: 'type',
+      key: 'type',
       render: (text, record) => (
         <Button
           type="link"
           onClick={() => {
             setModalData(record);
+            setIsShowModalOpen(true);
           }}
         >
           {text}
@@ -40,32 +52,17 @@ const AccountingIndex = () => {
       ),
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-      sorter: (a, b) => a.address.length - b.address.length,
-    },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
+      title: '類別',
+      key: 'category',
+      dataIndex: 'category',
+      render: (_, { category }) => (
         <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
+          {category.map((ele) => {
+            const color = ele.name.length > 5 ? 'geekblue' : 'green';
 
             return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
+              <Tag color={color} key={ele.id}>
+                {ele.name}
               </Tag>
             );
           })}
@@ -75,36 +72,11 @@ const AccountingIndex = () => {
     {
       title: 'Action',
       key: 'action',
-      render: (_, record) => (
+      render: () => (
         <Space size="middle">
-          <a>Invite {record.name}</a>
           <a>Delete</a>
         </Space>
       ),
-    },
-  ];
-
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
     },
   ];
 
@@ -114,11 +86,12 @@ const AccountingIndex = () => {
         <title>所有記帳</title>
       </Head>
       <main>
-        <AccountShowModal data={modalData} />
-        <AccountNewModal
-          isOpen={isNewModalOpen}
-          closeCallBack={closeNewModal}
+        <AccountShowModal
+          isOpen={isShowModalOpen}
+          data={modalData}
+          closeCallBack={closeModal}
         />
+        <AccountNewModal isOpen={isNewModalOpen} closeCallBack={closeModal} />
         <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
           <Flex gap="middle" align="center" justify="end">
             <Button
@@ -130,7 +103,7 @@ const AccountingIndex = () => {
               新增記帳
             </Button>
           </Flex>
-          <Table columns={columns} dataSource={data} />
+          <Table columns={columns} dataSource={data?.data} />
         </Space>
       </main>
     </MainLayout>

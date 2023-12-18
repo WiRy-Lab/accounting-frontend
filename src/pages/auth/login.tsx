@@ -22,7 +22,7 @@ const Login = () => {
     });
 
     if (result && result.ok) {
-      router.push('/');
+      router.push(router.query.callbackUrl as string);
     } else {
       messageApi.open({
         type: 'error',

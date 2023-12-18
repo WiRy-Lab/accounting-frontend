@@ -64,6 +64,19 @@ export default NextAuth({
       };
     },
   },
+  events: {
+    async signOut({ token }) {
+      await axios.post(
+        `${API_URL}/auth/logout`,
+        {},
+        {
+          headers: {
+            Authorization: `Token ${token.token}`,
+          },
+        }
+      );
+    },
+  },
   pages: {
     signIn: '/auth/login',
     newUser: '/auth/register',

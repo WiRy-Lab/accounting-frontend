@@ -36,7 +36,7 @@ const menuItems: MenuItem[] = [
     // ],
   },
   {
-    key: '/account_type',
+    key: '/category',
     icon: <FolderOpenOutlined />,
     label: '類別管理',
   },

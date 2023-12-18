@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { Layout, Button, theme } from 'antd';
+import { Layout, theme } from 'antd';
 import SideBar from '@/components/layouts/SideBar';
+import HeaderContent from '@/components/layouts/HeaderContent';
 
 const { Header, Sider, Content } = Layout;
 
@@ -33,7 +33,7 @@ const MainLayout = ({
   } = theme.useToken();
 
   return (
-    <Layout style={{ minHeight: '100vh', margin: '0px' }}>
+    <Layout style={{ height: '100vh', margin: '0px' }}>
       <Sider
         collapsedWidth="0"
         trigger={null}
@@ -48,35 +48,25 @@ const MainLayout = ({
           style={{
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'space-between',
             padding: 0,
             background: colorBgContainer,
+            width: '100%',
           }}
         >
-          <>
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: '16px',
-                width: 64,
-                height: 64,
-              }}
-            />
-            <h2
-              style={{
-                color: 'rgba(0, 0, 0, 0.6)',
-              }}
-            >
-              {title}
-            </h2>
-          </>
+          <HeaderContent
+            title={title}
+            collapsed={collapsed}
+            setCollapsed={setCollapsed}
+          />
         </Header>
         <Content
           style={{
             margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
+            padding: '24px',
+            height: 'calc(100vh - 64px)',
+            overflowY: 'auto',
+            paddingBottom: '30px',
             background: colorBgContainer,
           }}
         >

@@ -5,14 +5,14 @@ import Head from 'next/head';
 import MainLayout from '@/layouts/MainLayout';
 import AccountShowModal from '@/components/accounting/ShowModal';
 import AccountNewModal from '@/components/accounting/NewModal';
-import { AccountingListDTO, AccountingDTO } from '@/dto/AccountingDTO';
+import { AccountingDTO } from '@/dto/AccountingDTO';
 
 import $api from '@/plugins/api';
 
 const AccountingIndex = () => {
   const [modalData, setModalData] = useState<AccountingDTO | null>(null);
 
-  const [data, setData] = useState<AccountingListDTO | null>(null);
+  const [data, setData] = useState();
 
   const [isNewModalOpen, setIsNewModalOpen] = useState(false);
 
@@ -22,7 +22,7 @@ const AccountingIndex = () => {
     const fetchData = async () => {
       const result = await $api.accounting.all();
 
-      setData(result);
+      setData(result.data);
     };
 
     fetchData();
@@ -105,7 +105,7 @@ const AccountingIndex = () => {
           </Flex>
           <Table
             columns={columns}
-            dataSource={data?.data}
+            dataSource={data}
             rowKey={(record) => record.id}
           />
         </Space>

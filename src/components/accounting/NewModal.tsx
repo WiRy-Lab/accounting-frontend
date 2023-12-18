@@ -59,7 +59,7 @@ const AccountNewModal = ({ isOpen, closeCallBack }: Props) => {
     const fetchData = async () => {
       const result = await $api.category.all();
 
-      setCategory(result);
+      setCategory(result.data);
     };
 
     if (isOpen) {

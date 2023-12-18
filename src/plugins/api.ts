@@ -57,7 +57,7 @@ const $api = {
 
       return axiosAuth
         .get('/api/category')
-        .then((res) => res.data)
+        .then((res) => res)
         .catch((err) => err);
     },
   },

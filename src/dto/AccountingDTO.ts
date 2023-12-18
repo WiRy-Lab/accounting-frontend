@@ -14,11 +14,15 @@ type AccountingDTO = {
   category: CategoryDTO[];
 };
 
+type AccountingCategoryDTO = {
+  name: string;
+};
+
 type AccountingCreateDTO = {
   type: string;
   amount: number;
   date: string;
-  category: CategoryDTO[];
+  category: AccountingCategoryDTO[];
 };
 
 type AccountingListDTO = {

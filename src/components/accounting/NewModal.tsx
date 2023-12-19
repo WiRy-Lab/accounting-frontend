@@ -6,6 +6,8 @@ import type { CategoryDTO } from '@/dto/CategoryDTO';
 import type { AccountingCreateDTO } from '@/dto/AccountingDTO';
 import $api from '@/plugins/api';
 
+const { TextArea } = Input;
+
 dayjs.extend(customParseFormat);
 
 type Props = {
@@ -89,26 +91,38 @@ const AccountNewModal = ({ isOpen, closeCallBack }: Props) => {
             rules={[{ required: true, message: 'Please select date!' }]}
             tooltip="This is a required field"
           >
-            <DatePicker style={{ width: '100%' }} format="YYYY-MM-DD" />
+            <DatePicker
+              style={{ width: '100%' }}
+              format="YYYY-MM-DD"
+              placeholder="日期"
+            />
           </Form.Item>
           <Form.Item
-            label="分類"
+            label="名稱"
+            name="title"
+            tooltip="This is a required field"
+            rules={[{ required: true, message: 'Please enter title!' }]}
+          >
+            <Input autoComplete="false" placeholder="請輸入項目名稱" />
+          </Form.Item>
+          <Form.Item
+            label="類型"
             name="type"
             rules={[{ required: true, message: 'Please select type!' }]}
             tooltip="This is a required field"
           >
-            <Select>
+            <Select placeholder="請選擇類型">
               <Select.Option value="income">收入</Select.Option>
               <Select.Option value="outcome">支出</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item
-            label="類型"
+            label="分類"
             name="category"
             rules={[{ required: true, message: 'Please select category!' }]}
             tooltip="This is a required field"
           >
-            <Select mode="multiple">
+            <Select mode="multiple" placeholder="請選擇分類">
               {category.map((ele) => (
                 <Select.Option value={ele.name} key={ele.id}>
                   {ele.name}
@@ -124,8 +138,19 @@ const AccountNewModal = ({ isOpen, closeCallBack }: Props) => {
           >
             <Input
               type="number"
-              placeholder="input placeholder"
+              placeholder="請輸入金額"
               autoComplete="false"
+            />
+          </Form.Item>
+          <Form.Item
+            label="描述"
+            name="description"
+            tooltip="進階描述，可輸入100字以內，選填"
+          >
+            <TextArea
+              showCount
+              maxLength={100}
+              placeholder="請輸入進一步描述（選填）"
             />
           </Form.Item>
         </Form>

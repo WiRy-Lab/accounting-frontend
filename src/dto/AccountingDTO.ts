@@ -8,10 +8,12 @@ type AccountingFilterDTO = {
 
 type AccountingDTO = {
   id: number;
+  title: string;
   type: string;
   amount: number;
   date: string;
   category: CategoryDTO[];
+  description?: string;
 };
 
 type AccountingCategoryDTO = {

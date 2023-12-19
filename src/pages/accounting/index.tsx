@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Table, Tag, Button, Flex } from 'antd';
+import { Space, Table, Tag, Button, Flex, Modal, message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Head from 'next/head';
 import MainLayout from '@/layouts/MainLayout';
@@ -9,14 +9,23 @@ import { AccountingDTO } from '@/dto/AccountingDTO';
 
 import $api from '@/plugins/api';
 
-const AccountingIndex = () => {
-  const [modalData, setModalData] = useState<AccountingDTO | null>(null);
+const config = {
+  title: '刪除',
+  content: '確定要刪除嗎？',
+};
 
-  const [data, setData] = useState();
+const AccountingIndex = () => {
+  const [modalDataId, setModalDataId] = useState<number>(0);
+
+  const [data, setData] = useState([]);
 
   const [isNewModalOpen, setIsNewModalOpen] = useState(false);
 
   const [isShowModalOpen, setIsShowModalOpen] = useState(false);
+
+  const [modal, contextHolder] = Modal.useModal();
+
+  const [messageApi, contextHolderMessage] = message.useMessage();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,25 +40,30 @@ const AccountingIndex = () => {
   const closeModal = () => {
     setIsNewModalOpen(false);
     setIsShowModalOpen(false);
-    setModalData(null);
+    setModalDataId(0);
   };
 
   const columns: ColumnsType<AccountingDTO> = [
     {
-      title: '項目',
-      dataIndex: 'type',
-      key: 'type',
+      title: '名稱',
+      dataIndex: 'title',
+      key: 'title',
       render: (text, record) => (
         <Button
           type="link"
           onClick={() => {
-            setModalData(record);
+            setModalDataId(record.id);
             setIsShowModalOpen(true);
           }}
         >
           {text}
         </Button>
       ),
+    },
+    {
+      title: '項目',
+      dataIndex: 'type',
+      key: 'type',
     },
     {
       title: '類別',
@@ -72,9 +86,41 @@ const AccountingIndex = () => {
     {
       title: 'Action',
       key: 'action',
-      render: () => (
+      render: (record) => (
         <Space size="middle">
-          <a>Delete</a>
+          <Button
+            type="link"
+            danger
+            onClick={async () => {
+              const confirmed = await modal.confirm(config);
+
+              if (!confirmed) {
+                return;
+              }
+
+              const result = await $api.accounting.destroy(record.id);
+
+              if (!result) {
+                messageApi.open({
+                  type: 'error',
+                  content: 'Delete failed!',
+                });
+
+                return;
+              }
+
+              messageApi.open({
+                type: 'success',
+                content: 'Delete success!',
+              });
+
+              setData((prev) =>
+                prev.filter((ele: AccountingDTO) => ele.id !== record.id)
+              );
+            }}
+          >
+            刪除
+          </Button>
         </Space>
       ),
     },
@@ -86,9 +132,11 @@ const AccountingIndex = () => {
         <title>所有記帳</title>
       </Head>
       <main>
+        {contextHolder}
+        {contextHolderMessage}
         <AccountShowModal
           isOpen={isShowModalOpen}
-          data={modalData}
+          id={modalDataId}
           closeCallBack={closeModal}
         />
         <AccountNewModal isOpen={isNewModalOpen} closeCallBack={closeModal} />
@@ -106,6 +154,7 @@ const AccountingIndex = () => {
           <Table
             columns={columns}
             dataSource={data}
+            pagination={{ pageSize: 5 }}
             rowKey={(record) => record.id}
           />
         </Space>

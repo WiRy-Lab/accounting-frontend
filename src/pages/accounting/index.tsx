@@ -45,6 +45,11 @@ const AccountingIndex = () => {
 
   const columns: ColumnsType<AccountingDTO> = [
     {
+      title: '日期',
+      dataIndex: 'date',
+      key: 'date',
+    },
+    {
       title: '名稱',
       dataIndex: 'title',
       key: 'title',

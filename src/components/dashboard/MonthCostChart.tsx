@@ -1,18 +1,17 @@
-import React from 'react';
 import { Card, Typography } from 'antd';
-
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Legend,
   LinearScale,
-  PointElement,
   LineElement,
+  PointElement,
   Title as ChartTitle,
   Tooltip,
-  Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
 import faker from 'faker';
+import React from 'react';
+import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,

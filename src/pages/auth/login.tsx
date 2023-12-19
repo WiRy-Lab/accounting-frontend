@@ -1,11 +1,12 @@
-import React from 'react';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Card, Checkbox, Form, Input, message, Typography } from 'antd';
 import Head from 'next/head';
-import AuthLayout from '@/layouts/AuthLayout';
-import { Form, Input, Button, Checkbox, Card, Typography, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import type { LoginDTO } from '@/dto/AuthDTO';
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
+import React from 'react';
+
+import type { LoginDTO } from '@/dto/AuthDTO';
+import AuthLayout from '@/layouts/AuthLayout';
 
 const { Title } = Typography;
 

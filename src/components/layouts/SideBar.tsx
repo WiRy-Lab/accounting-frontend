@@ -1,12 +1,12 @@
-import React from 'react';
-import { Menu } from 'antd';
-import type { MenuProps } from 'antd';
-import { useRouter } from 'next/router';
 import {
   AccountBookOutlined,
   DashboardOutlined,
   FolderOpenOutlined,
 } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { Menu } from 'antd';
+import { useRouter } from 'next/router';
+import React from 'react';
 
 type Props = {
   clickCallBack: () => void;

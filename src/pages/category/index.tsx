@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Head from 'next/head';
-import MainLayout from '@/layouts/MainLayout';
-import { Button, Space, Flex, Table } from 'antd';
+import { Button, Flex, Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import type { CategoryDTO } from '@/dto/CategoryDTO';
+import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
 
+import type { CategoryDTO } from '@/dto/CategoryDTO';
+import MainLayout from '@/layouts/MainLayout';
 import $api from '@/plugins/api';
 
 const AccountTypeIndex = () => {

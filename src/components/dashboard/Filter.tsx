@@ -1,5 +1,5 @@
+import { Card, DatePicker, Typography } from 'antd';
 import React from 'react';
-import { DatePicker, Card, Typography } from 'antd';
 
 const { Title } = Typography;
 

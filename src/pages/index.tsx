@@ -1,11 +1,12 @@
+import { Col, Row, Space } from 'antd';
 import Head from 'next/head';
-import DashBoardLayout from '@/layouts/DashBoardLayout';
-import { Row, Col, Space } from 'antd';
+
+import Filter from '@/components/dashboard/Filter';
 import MonthCostChart from '@/components/dashboard/MonthCostChart';
 import SpendCost from '@/components/dashboard/SpendCost';
-import TypeCostChart from '@/components/dashboard/TypeCostChart';
-import Filter from '@/components/dashboard/Filter';
 import Target from '@/components/dashboard/Target';
+import TypeCostChart from '@/components/dashboard/TypeCostChart';
+import DashBoardLayout from '@/layouts/DashBoardLayout';
 
 export default function Home() {
   return (

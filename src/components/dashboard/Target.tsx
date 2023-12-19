@@ -1,8 +1,8 @@
-import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import { Card, Col, DatePicker, Row, Typography } from 'antd';
 import type { ChartMeta } from 'chart.js';
-import { DatePicker, Card, Typography, Row, Col } from 'antd';
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
+import React from 'react';
+import { Doughnut } from 'react-chartjs-2';
 
 const { Title } = Typography;
 

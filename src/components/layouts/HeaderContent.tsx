@@ -1,7 +1,7 @@
-import React from 'react';
-import { Flex, Space, Button, Modal } from 'antd';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { Button, Flex, Modal, Space } from 'antd';
 import { signOut } from 'next-auth/react';
+import React from 'react';
 
 type Props = {
   title: string;
@@ -46,6 +46,7 @@ const HeaderContent = ({ title, collapsed, setCollapsed }: Props) => {
             const confirmed = await modal.confirm(config);
 
             if (confirmed) {
+              localStorage.removeItem('token');
               signOut();
             }
           }}

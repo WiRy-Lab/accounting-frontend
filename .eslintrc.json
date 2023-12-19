@@ -18,6 +18,8 @@
   "plugins": ["simple-import-sort", "unused-imports"],
   "ignorePatterns": ["next-auth.d.ts"],
   "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
     "react/jsx-props-no-spreading": "off",
     "no-unused-vars": ["error"],

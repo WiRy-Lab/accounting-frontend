@@ -34,8 +34,8 @@ type AccountingListDTO = {
 };
 
 export type {
-  AccountingDTO,
   AccountingCreateDTO,
+  AccountingDTO,
   AccountingFilterDTO,
   AccountingListDTO,
 };

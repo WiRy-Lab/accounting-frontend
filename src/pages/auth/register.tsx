@@ -1,11 +1,12 @@
-import React from 'react';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Card, Form, Input, message, Typography } from 'antd';
 import Head from 'next/head';
-import AuthLayout from '@/layouts/AuthLayout';
-import { Form, Input, Button, Card, Typography, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import type { RegisterDTO } from '@/dto/AuthDTO';
-import $api from '@/plugins/api';
 import { useRouter } from 'next/router';
+import React from 'react';
+
+import type { RegisterDTO } from '@/dto/AuthDTO';
+import AuthLayout from '@/layouts/AuthLayout';
+import $api from '@/plugins/api';
 
 const { Title } = Typography;
 

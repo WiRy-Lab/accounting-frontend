@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import { Layout, theme } from 'antd';
-import SideBar from '@/components/layouts/SideBar';
+import React, { useEffect, useState } from 'react';
+
 import HeaderContent from '@/components/layouts/HeaderContent';
+import SideBar from '@/components/layouts/SideBar';
 
 const { Header, Sider, Content } = Layout;
 

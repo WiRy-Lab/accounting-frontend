@@ -1,6 +1,6 @@
+import axios from 'axios';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import axios from 'axios';
 
 const { API_URL } = process.env;
 

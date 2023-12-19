@@ -1,12 +1,23 @@
 import axios from 'axios';
-import { LoginDTO, RegisterDTO } from '@/dto/AuthDTO';
-import { AccountingCreateDTO, AccountingFilterDTO } from '@/dto/AccountingDTO';
 import { getSession } from 'next-auth/react';
 
+import { AccountingCreateDTO, AccountingFilterDTO } from '@/dto/AccountingDTO';
+import { LoginDTO, RegisterDTO } from '@/dto/AuthDTO';
+
 const axiosWithAuth = async () => {
+  if (localStorage.getItem('token')) {
+    return axios.create({
+      headers: {
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+    });
+  }
+
   const session = await getSession();
 
   const token = session?.user.token;
+
+  localStorage.setItem('token', token ?? '');
 
   return axios.create({
     headers: {

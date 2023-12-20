@@ -27,6 +27,10 @@ type AccountingCreateDTO = {
   category: AccountingCategoryDTO[];
 };
 
+type AccountingUpdateDTO = AccountingCreateDTO & {
+  id: number;
+};
+
 type AccountingListDTO = {
   from: string;
   end: string;
@@ -38,4 +42,5 @@ export type {
   AccountingDTO,
   AccountingFilterDTO,
   AccountingListDTO,
+  AccountingUpdateDTO,
 };

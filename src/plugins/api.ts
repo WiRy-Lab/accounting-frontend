@@ -77,6 +77,14 @@ const $api = {
         .then((res) => res.status === 204)
         .catch(() => false);
     },
+    update: async (id: number, data: AccountingCreateDTO) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .put(`/api/accounting/${id}`, data)
+        .then((res) => res.status === 200)
+        .catch(() => false);
+    },
   },
   category: {
     all: async () => {

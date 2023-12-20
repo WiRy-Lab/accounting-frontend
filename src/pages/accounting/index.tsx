@@ -3,6 +3,7 @@ import type { ColumnsType } from 'antd/es/table';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 
+import AccountEditModal from '@/components/accounting/EditModal';
 import AccountNewModal from '@/components/accounting/NewModal';
 import AccountShowModal from '@/components/accounting/ShowModal';
 import { AccountingDTO } from '@/dto/AccountingDTO';
@@ -23,6 +24,8 @@ const AccountingIndex = () => {
 
   const [isShowModalOpen, setIsShowModalOpen] = useState(false);
 
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
   const [modal, contextHolder] = Modal.useModal();
 
   const [messageApi, contextHolderMessage] = message.useMessage();
@@ -35,11 +38,12 @@ const AccountingIndex = () => {
     };
 
     fetchData();
-  }, [isNewModalOpen]);
+  }, [isNewModalOpen, isEditModalOpen]);
 
   const closeModal = () => {
     setIsNewModalOpen(false);
     setIsShowModalOpen(false);
+    setIsEditModalOpen(false);
     setModalDataId(0);
   };
 
@@ -69,6 +73,18 @@ const AccountingIndex = () => {
       title: '項目',
       dataIndex: 'type',
       key: 'type',
+      render: (text) => {
+        const color = text === 'outcome' ? 'red' : 'green';
+
+        switch (text) {
+          case 'income':
+            return <Tag color={color}>收入</Tag>;
+          case 'outcome':
+            return <Tag color={color}>支出</Tag>;
+          default:
+            return <Tag color={color}>{text}</Tag>;
+        }
+      },
     },
     {
       title: '類別',
@@ -126,6 +142,15 @@ const AccountingIndex = () => {
           >
             刪除
           </Button>
+          <Button
+            type="link"
+            onClick={() => {
+              setModalDataId(record.id);
+              setIsEditModalOpen(true);
+            }}
+          >
+            編輯
+          </Button>
         </Space>
       ),
     },
@@ -145,6 +170,11 @@ const AccountingIndex = () => {
           closeCallBack={closeModal}
         />
         <AccountNewModal isOpen={isNewModalOpen} closeCallBack={closeModal} />
+        <AccountEditModal
+          isOpen={isEditModalOpen}
+          id={modalDataId}
+          closeCallBack={closeModal}
+        />
         <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
           <Flex gap="middle" align="center" justify="end">
             <Button

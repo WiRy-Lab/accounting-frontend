@@ -23,6 +23,7 @@ type FormValues = {
   type: string;
   category: string[];
   amount: number;
+  description: string;
 };
 
 const AccountEditModal = ({ isOpen, id, closeCallBack }: Props) => {

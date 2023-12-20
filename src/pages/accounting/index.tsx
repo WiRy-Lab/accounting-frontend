@@ -1,14 +1,30 @@
-import { Button, Flex, message, Modal, Space, Table, Tag } from 'antd';
+import {
+  Button,
+  DatePicker,
+  Flex,
+  message,
+  Modal,
+  Select,
+  Space,
+  Table,
+  Tag,
+} from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import dayjs from 'dayjs';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 
 import AccountEditModal from '@/components/accounting/EditModal';
 import AccountNewModal from '@/components/accounting/NewModal';
 import AccountShowModal from '@/components/accounting/ShowModal';
-import { AccountingDTO } from '@/dto/AccountingDTO';
+import type { AccountingDTO } from '@/dto/AccountingDTO';
+import type { CategoryDTO } from '@/dto/CategoryDTO';
 import MainLayout from '@/layouts/MainLayout';
 import $api from '@/plugins/api';
+
+type RangeValue = Parameters<
+  NonNullable<React.ComponentProps<typeof DatePicker.RangePicker>['onChange']>
+>[0];
 
 const config = {
   title: '刪除',
@@ -30,15 +46,62 @@ const AccountingIndex = () => {
 
   const [messageApi, contextHolderMessage] = message.useMessage();
 
+  const [categoryOption, setCategoryOption] = useState<CategoryDTO[] | []>([]);
+
+  const [accountFilter, setAccountFilter] = useState<{
+    from?: string;
+    end?: string;
+  }>({});
+
   useEffect(() => {
     const fetchData = async () => {
-      const result = await $api.accounting.all();
+      const result = await $api.accounting.all(accountFilter);
 
       setData(result.data);
     };
 
+    const fetchCategory = async () => {
+      const result = await $api.category.all();
+
+      setCategoryOption(result.data);
+    };
+
     fetchData();
-  }, [isNewModalOpen, isEditModalOpen]);
+    fetchCategory();
+  }, [isNewModalOpen, isEditModalOpen, accountFilter]);
+
+  const filterData = (values: RangeValue) => {
+    if (!values) {
+      setAccountFilter((prev) => {
+        return {
+          ...prev,
+          from: dayjs().startOf('month').format('YYYY-MM-DD'),
+          end: dayjs().endOf('month').format('YYYY-MM-DD'),
+        };
+      });
+
+      return;
+    }
+
+    const [from, end] = values;
+
+    setAccountFilter((prev) => {
+      return {
+        ...prev,
+        from: dayjs(from).format('YYYY-MM-DD'),
+        end: dayjs(end).format('YYYY-MM-DD'),
+      };
+    });
+  };
+
+  const filterCategory = (values: string[]) => {
+    setAccountFilter((prev) => {
+      return {
+        ...prev,
+        category: values.join(','),
+      };
+    });
+  };
 
   const closeModal = () => {
     setIsNewModalOpen(false);
@@ -87,6 +150,14 @@ const AccountingIndex = () => {
       },
     },
     {
+      title: '金額',
+      dataIndex: 'amount',
+      key: 'amount',
+      render: (text) => {
+        return `$ ${text}`;
+      },
+    },
+    {
       title: '類別',
       key: 'category',
       dataIndex: 'category',
@@ -109,6 +180,15 @@ const AccountingIndex = () => {
       key: 'action',
       render: (record) => (
         <Space size="middle">
+          <Button
+            type="link"
+            onClick={() => {
+              setModalDataId(record.id);
+              setIsEditModalOpen(true);
+            }}
+          >
+            編輯
+          </Button>
           <Button
             type="link"
             danger
@@ -142,15 +222,6 @@ const AccountingIndex = () => {
           >
             刪除
           </Button>
-          <Button
-            type="link"
-            onClick={() => {
-              setModalDataId(record.id);
-              setIsEditModalOpen(true);
-            }}
-          >
-            編輯
-          </Button>
         </Space>
       ),
     },
@@ -176,15 +247,38 @@ const AccountingIndex = () => {
           closeCallBack={closeModal}
         />
         <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-          <Flex gap="middle" align="center" justify="end">
-            <Button
-              type="primary"
-              onClick={() => {
-                setIsNewModalOpen(true);
-              }}
-            >
-              新增記帳
-            </Button>
+          <Flex gap="middle" align="center" justify="space-between">
+            <Flex gap="middle" align="center">
+              <DatePicker.RangePicker
+                onChange={filterData}
+                defaultValue={[
+                  dayjs().startOf('month'),
+                  dayjs().endOf('month'),
+                ]}
+              />
+              <Select
+                mode="multiple"
+                placeholder="請選擇分類"
+                style={{ minWidth: '150px' }}
+                onChange={filterCategory}
+              >
+                {categoryOption.map((ele) => (
+                  <Select.Option value={ele.id} key={`Op${ele.id}`}>
+                    {ele.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Flex>
+            <div>
+              <Button
+                type="primary"
+                onClick={() => {
+                  setIsNewModalOpen(true);
+                }}
+              >
+                新增記帳
+              </Button>
+            </div>
           </Flex>
           <Table
             columns={columns}

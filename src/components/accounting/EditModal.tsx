@@ -96,8 +96,10 @@ const AccountEditModal = ({ isOpen, id, closeCallBack }: Props) => {
   }, [isOpen, id, messageApi]);
 
   useEffect(() => {
-    form.setFieldsValue(data);
-  }, [form, data]);
+    if (isOpen && data) {
+      form.setFieldsValue(data);
+    }
+  }, [isOpen, data, form]);
 
   return (
     <>

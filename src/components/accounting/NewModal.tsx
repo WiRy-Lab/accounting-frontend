@@ -123,7 +123,11 @@ const AccountNewModal = ({ isOpen, closeCallBack }: Props) => {
             rules={[{ required: true, message: 'Please select category!' }]}
             tooltip="This is a required field"
           >
-            <Select mode="multiple" placeholder="請選擇分類">
+            <Select
+              mode="tags"
+              tokenSeparators={[',']}
+              placeholder="請選擇分類"
+            >
               {category.map((ele) => (
                 <Select.Option value={ele.name} key={ele.id}>
                   {ele.name}

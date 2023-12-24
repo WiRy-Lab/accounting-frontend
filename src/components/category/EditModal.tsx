@@ -31,7 +31,7 @@ const CategoryEditModal = ({ isOpen, id, closeCallBack }: Props) => {
     if (isOpen) {
       fetchData();
     }
-  });
+  }, [isOpen, id, messageApi]);
 
   useEffect(() => {
     if (isOpen && data) {
@@ -65,6 +65,11 @@ const CategoryEditModal = ({ isOpen, id, closeCallBack }: Props) => {
 
               return;
             }
+
+            messageApi.open({
+              type: 'success',
+              content: 'Update success!',
+            });
 
             closeCallBack();
           }}

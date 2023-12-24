@@ -1,14 +1,47 @@
-import { Col, Row, Space } from 'antd';
+import { Card, Col, DatePicker, Row, Space, Typography } from 'antd';
+import dayjs from 'dayjs';
 import Head from 'next/head';
+import React, { useState } from 'react';
 
-import Filter from '@/components/dashboard/Filter';
 import MonthCostChart from '@/components/dashboard/MonthCostChart';
 import SpendCost from '@/components/dashboard/SpendCost';
 import Target from '@/components/dashboard/Target';
 import TypeCostChart from '@/components/dashboard/TypeCostChart';
 import DashBoardLayout from '@/layouts/DashBoardLayout';
 
+const { Title } = Typography;
+
+type RangeValue = Parameters<
+  NonNullable<React.ComponentProps<typeof DatePicker.RangePicker>['onChange']>
+>[0];
+
 export default function Home() {
+  const [dateRange, setDateRange] = useState<{
+    from: string;
+    end: string;
+  }>({
+    from: dayjs().startOf('month').format('YYYY-MM-DD'),
+    end: dayjs().endOf('month').format('YYYY-MM-DD'),
+  });
+
+  const handleFilter = (values: RangeValue) => {
+    if (!values) {
+      setDateRange({
+        from: dayjs().startOf('month').format('YYYY-MM-DD'),
+        end: dayjs().endOf('month').format('YYYY-MM-DD'),
+      });
+
+      return;
+    }
+
+    const [from, end] = values;
+
+    setDateRange({
+      from: dayjs(from).format('YYYY-MM-DD'),
+      end: dayjs(end).format('YYYY-MM-DD'),
+    });
+  };
+
   return (
     <DashBoardLayout title="儀表板">
       <Head>
@@ -20,11 +53,23 @@ export default function Home() {
       <main>
         <Row gutter={[16, 16]}>
           <Col span={24} md={16} style={{ height: 'inherit' }}>
-            <MonthCostChart />
+            <MonthCostChart dateRange={dateRange} />
           </Col>
           <Col span={24} md={8} style={{ height: 'inherit ' }}>
             <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-              <Filter />
+              <Card>
+                <Title level={4} style={{ marginTop: '0' }}>
+                  篩選區間
+                </Title>
+                <DatePicker.RangePicker
+                  onChange={handleFilter}
+                  style={{ width: '100%' }}
+                  defaultValue={[
+                    dayjs().startOf('month'),
+                    dayjs().endOf('month'),
+                  ]}
+                />
+              </Card>
               <SpendCost />
               <Target />
             </Space>

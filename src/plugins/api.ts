@@ -129,6 +129,21 @@ const $api = {
         .catch(() => false);
     },
   },
+  charts: {
+    rangeCost: async (from: string, end: string) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .get('/api/charts/range_cost', {
+          params: {
+            from,
+            end,
+          },
+        })
+        .then((res) => res)
+        .catch((err) => err);
+    },
+  },
 };
 
 export default $api;

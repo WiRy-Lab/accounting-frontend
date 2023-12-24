@@ -246,7 +246,13 @@ const AccountingIndex = () => {
           id={modalDataId}
           closeCallBack={closeModal}
         />
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+        <Space
+          direction="vertical"
+          size="middle"
+          style={{
+            display: 'flex',
+          }}
+        >
           <Flex gap="middle" align="center" justify="space-between">
             <Flex gap="middle" align="center">
               <DatePicker.RangePicker

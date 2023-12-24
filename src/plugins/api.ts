@@ -3,6 +3,7 @@ import { getSession } from 'next-auth/react';
 
 import { AccountingCreateDTO, AccountingFilterDTO } from '@/dto/AccountingDTO';
 import { LoginDTO, RegisterDTO } from '@/dto/AuthDTO';
+import { CategoryCreateDTO, CategoryDTO } from '@/dto/CategoryDTO';
 
 const axiosWithAuth = async () => {
   if (localStorage.getItem('token')) {
@@ -94,6 +95,38 @@ const $api = {
         .get('/api/category')
         .then((res) => res)
         .catch((err) => err);
+    },
+    create: async (data: CategoryCreateDTO) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .post('/api/category', data)
+        .then((res) => res)
+        .catch((err) => err);
+    },
+    show: async (id: number) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .get(`/api/category/${id}`)
+        .then((res) => res)
+        .catch((err) => err);
+    },
+    update: async (id: number, data: CategoryDTO) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .put(`/api/category/${id}`, data)
+        .then((res) => res.status === 200)
+        .catch(() => false);
+    },
+    destroy: async (id: number) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .delete(`/api/category/${id}`)
+        .then((res) => res.status === 204)
+        .catch(() => false);
     },
   },
 };

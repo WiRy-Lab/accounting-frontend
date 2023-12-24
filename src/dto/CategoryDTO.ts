@@ -3,7 +3,11 @@ type CategoryDTO = {
   name: string;
 };
 
+type CategoryCreateDTO = {
+  name: string;
+};
+
 type CategoryFilterDTO = {
   name: string;
 };
-export type { CategoryDTO, CategoryFilterDTO };
+export type { CategoryCreateDTO, CategoryDTO, CategoryFilterDTO };

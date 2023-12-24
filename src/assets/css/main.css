@@ -9,3 +9,10 @@ body{
     border-radius: 6px;
 }
 
+/* .accounting-list-table > .ant-space-item:first-child{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #fff;
+    padding: 10px 0px 20px 0px;
+} */

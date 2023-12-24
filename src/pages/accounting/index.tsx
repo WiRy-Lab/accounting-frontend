@@ -283,7 +283,6 @@ const AccountingIndex = () => {
           <Table
             columns={columns}
             dataSource={data}
-            pagination={{ pageSize: 5 }}
             rowKey={(record) => record.id}
           />
         </Space>

@@ -1,6 +1,7 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Input, message, Typography } from 'antd';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -18,7 +19,7 @@ const Register = () => {
   const onFinish = async (values: RegisterDTO) => {
     const res = await $api.auth.register(values);
 
-    if (res && res.status === 200) {
+    if (res && res.status === 201) {
       router.push('/api/auth/login');
     } else {
       messageApi.open({
@@ -48,7 +49,7 @@ const Register = () => {
               level={3}
               style={{ margin: '0px 0px 20px 0px', textAlign: 'center' }}
             >
-              Login
+              Register
             </Title>
             <Form
               name="normal_login"
@@ -140,7 +141,7 @@ const Register = () => {
                 >
                   Register
                 </Button>
-                Or <a href="">login now!</a>
+                Or <Link href="/auth/login">login now!</Link>
               </Form.Item>
             </Form>
           </Card>

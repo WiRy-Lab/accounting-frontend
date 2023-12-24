@@ -1,6 +1,7 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Card, Checkbox, Form, Input, message, Typography } from 'antd';
+import { Button, Card, Form, Input, message, Typography } from 'antd';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import React from 'react';
@@ -92,10 +93,6 @@ const Login = () => {
                 />
               </Form.Item>
               <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-
                 <a className="login-form-forgot" href="">
                   Forgot password
                 </a>
@@ -109,7 +106,7 @@ const Login = () => {
                 >
                   Log in
                 </Button>
-                Or <a href="">register now!</a>
+                Or <Link href="/auth/register">register now!</Link>
               </Form.Item>
             </Form>
           </Card>

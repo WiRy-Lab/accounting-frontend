@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { getSession, signOut } from 'next-auth/react';
 
 import { AccountingCreateDTO, AccountingFilterDTO } from '@/dto/AccountingDTO';
@@ -27,7 +27,8 @@ const axiosWithAuth = async () => {
   });
 };
 
-const errorHandler = (err: AxiosError) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const errorHandler = (err: any) => {
   if (err.response?.status === 401) {
     localStorage.removeItem('token');
     signOut();

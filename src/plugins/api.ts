@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { getSession } from 'next-auth/react';
+import axios, { AxiosError } from 'axios';
+import { getSession, signOut } from 'next-auth/react';
 
 import { AccountingCreateDTO, AccountingFilterDTO } from '@/dto/AccountingDTO';
 import { LoginDTO, RegisterDTO } from '@/dto/AuthDTO';
@@ -27,6 +27,15 @@ const axiosWithAuth = async () => {
   });
 };
 
+const errorHandler = (err: AxiosError) => {
+  if (err.response?.status === 401) {
+    localStorage.removeItem('token');
+    signOut();
+  }
+
+  return err;
+};
+
 const $api = {
   auth: {
     login: (data: LoginDTO) =>
@@ -39,11 +48,14 @@ const $api = {
         .post('/api/auth/register', data)
         .then((res) => res.data)
         .catch((err) => err.response),
-    me: () =>
-      axios
+    me: async () => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
         .get('/api/auth/me')
-        .then((res) => res.data)
-        .catch((err) => err.response),
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
   },
   accounting: {
     all: async (filter: AccountingFilterDTO = {}) => {
@@ -52,7 +64,7 @@ const $api = {
       return axiosAuth
         .get('/api/accounting', { params: filter })
         .then((res) => res.data)
-        .catch((err) => err);
+        .catch((err) => errorHandler(err));
     },
     show: async (id: number) => {
       const axiosAuth = await axiosWithAuth();
@@ -60,7 +72,7 @@ const $api = {
       return axiosAuth
         .get(`/api/accounting/${id}`)
         .then((res) => res)
-        .catch((err) => err);
+        .catch((err) => errorHandler(err));
     },
     create: async (data: AccountingCreateDTO) => {
       const axiosAuth = await axiosWithAuth();
@@ -68,7 +80,7 @@ const $api = {
       return axiosAuth
         .post('/api/accounting', data)
         .then((res) => res)
-        .catch((err) => err);
+        .catch((err) => errorHandler(err));
     },
     destroy: async (id: number) => {
       const axiosAuth = await axiosWithAuth();
@@ -94,7 +106,7 @@ const $api = {
       return axiosAuth
         .get('/api/category')
         .then((res) => res)
-        .catch((err) => err);
+        .catch((err) => errorHandler(err));
     },
     create: async (data: CategoryCreateDTO) => {
       const axiosAuth = await axiosWithAuth();
@@ -102,7 +114,7 @@ const $api = {
       return axiosAuth
         .post('/api/category', data)
         .then((res) => res)
-        .catch((err) => err);
+        .catch((err) => errorHandler(err));
     },
     show: async (id: number) => {
       const axiosAuth = await axiosWithAuth();
@@ -110,7 +122,7 @@ const $api = {
       return axiosAuth
         .get(`/api/category/${id}`)
         .then((res) => res)
-        .catch((err) => err);
+        .catch((err) => errorHandler(err));
     },
     update: async (id: number, data: CategoryDTO) => {
       const axiosAuth = await axiosWithAuth();
@@ -141,7 +153,7 @@ const $api = {
           },
         })
         .then((res) => res)
-        .catch((err) => err);
+        .catch((err) => errorHandler(err));
     },
   },
 };

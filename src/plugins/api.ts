@@ -169,6 +169,14 @@ const $api = {
         .then((res) => res)
         .catch((err) => errorHandler(err));
     },
+    target: async ({ year, month }: { year: number; month: number }) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .get(`/api/charts/target/${year}/${month}`)
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
   },
 };
 

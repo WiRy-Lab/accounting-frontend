@@ -10,4 +10,13 @@ type TypeCostList = {
   data: TypeCost[];
 };
 
-export type { TypeCost, TypeCostList };
+type TargetChartData = {
+  year: number;
+  month: number;
+  target_income: number;
+  target_outcome: number;
+  income: number[];
+  outcome: number[];
+};
+
+export type { TargetChartData, TypeCost, TypeCostList };

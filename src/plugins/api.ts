@@ -178,6 +178,24 @@ const $api = {
         .catch((err) => errorHandler(err));
     },
   },
+  reports: {
+    getYearReports: async (year: number) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .get(`/api/reports/get_year_reports/${year}`)
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
+    getMonthReports: async (year: number, month: number) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .get(`/api/reports/get_month_reports/${year}/${month}`)
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
+  },
 };
 
 export default $api;

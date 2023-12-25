@@ -1,6 +1,7 @@
 import {
   AccountBookOutlined,
   DashboardOutlined,
+  FileExcelOutlined,
   FolderOpenOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
@@ -40,6 +41,11 @@ const menuItems: MenuItem[] = [
     key: '/category',
     icon: <FolderOpenOutlined />,
     label: '類別管理',
+  },
+  {
+    key: '/report',
+    icon: <FileExcelOutlined />,
+    label: '匯出報表',
   },
   {
     key: '/setting',

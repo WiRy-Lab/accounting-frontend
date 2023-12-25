@@ -141,7 +141,7 @@ const Register = () => {
                 >
                   Register
                 </Button>
-                Or <Link href="/auth/login">login now!</Link>
+                Or <Link href="/api/auth/signin">login now!</Link>
               </Form.Item>
             </Form>
           </Card>

@@ -24,7 +24,7 @@ const Login = () => {
     });
 
     if (result && result.ok) {
-      router.push(router.query.callbackUrl as string);
+      router.push((router.query.callbackUrl as string) || '/');
     } else {
       messageApi.open({
         type: 'error',

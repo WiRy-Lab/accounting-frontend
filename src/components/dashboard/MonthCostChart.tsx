@@ -1,4 +1,4 @@
-import { Card, Typography } from 'antd';
+import { Card, message, Typography } from 'antd';
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -79,9 +79,20 @@ const MonthCostChart = ({ dateRange: { from, end } }: Props) => {
     datasets: [],
   });
 
+  const [messageApi, contextHolder] = message.useMessage();
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await $api.charts.rangeCost(from, end);
+
+      if (result.status !== 200) {
+        messageApi.open({
+          type: 'error',
+          content: '時間範圍過短或區間沒有資料!',
+        });
+
+        return;
+      }
 
       const resultData = result.data;
 
@@ -105,15 +116,18 @@ const MonthCostChart = ({ dateRange: { from, end } }: Props) => {
     };
 
     fetchData();
-  }, [from, end]);
+  }, [from, end, messageApi]);
 
   return (
-    <Card style={{ height: '100%' }}>
-      <Title level={4} style={{ margin: 0 }}>
-        區間內消費曲線
-      </Title>
-      <Line options={options} data={chartData} />
-    </Card>
+    <>
+      {contextHolder}
+      <Card style={{ height: '100%' }}>
+        <Title level={4} style={{ margin: 0 }}>
+          區間內消費曲線
+        </Title>
+        <Line options={options} data={chartData} />
+      </Card>
+    </>
   );
 };
 

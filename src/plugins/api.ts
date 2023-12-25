@@ -156,6 +156,19 @@ const $api = {
         .then((res) => res)
         .catch((err) => errorHandler(err));
     },
+    typeCost: async (from: string, end: string) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .get('/api/charts/type_cost', {
+          params: {
+            from,
+            end,
+          },
+        })
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
   },
 };
 

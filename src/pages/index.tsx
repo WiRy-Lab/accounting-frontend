@@ -75,7 +75,7 @@ export default function Home() {
             </Space>
           </Col>
           <Col span={24} style={{ height: 'inherit ' }}>
-            <TypeCostChart />
+            <TypeCostChart dateRange={dateRange} />
           </Col>
         </Row>
       </main>

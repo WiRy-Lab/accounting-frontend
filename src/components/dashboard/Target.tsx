@@ -12,8 +12,6 @@ const { Title } = Typography;
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const value = Math.random() * 1000;
-
 // const data = {
 //   labels: [],
 //   datasets: [
@@ -80,7 +78,7 @@ const Target = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleMonthChange = (date: dayjs.Dayjs | null) => {
-    if (value !== null && date !== null) {
+    if (date !== null) {
       setYear(date.year());
       setMonth(date.month() + 1);
     }

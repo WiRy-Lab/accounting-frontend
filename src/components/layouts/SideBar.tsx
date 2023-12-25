@@ -2,6 +2,7 @@ import {
   AccountBookOutlined,
   DashboardOutlined,
   FolderOpenOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
@@ -39,6 +40,11 @@ const menuItems: MenuItem[] = [
     key: '/category',
     icon: <FolderOpenOutlined />,
     label: '類別管理',
+  },
+  {
+    key: '/setting',
+    icon: <SettingOutlined />,
+    label: '設定',
   },
 ];
 

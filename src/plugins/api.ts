@@ -204,6 +204,9 @@ const $api = {
         .catch((err) => errorHandler(err));
     },
   },
+  // settings: {
+
+  // }
 };
 
 export default $api;

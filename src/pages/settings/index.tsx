@@ -3,7 +3,7 @@ import React from 'react';
 
 import MainLayout from '@/layouts/MainLayout';
 
-const SettingIndex = () => {
+const SettingsIndex = () => {
   return (
     <MainLayout title="設定">
       <Head>
@@ -16,4 +16,4 @@ const SettingIndex = () => {
   );
 };
 
-export default SettingIndex;
+export default SettingsIndex;

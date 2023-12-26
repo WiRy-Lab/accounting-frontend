@@ -48,7 +48,7 @@ const menuItems: MenuItem[] = [
     label: '匯出報表',
   },
   {
-    key: '/setting',
+    key: '/settings',
     icon: <SettingOutlined />,
     label: '設定',
   },

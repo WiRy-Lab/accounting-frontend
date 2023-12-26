@@ -70,7 +70,7 @@ export default function Home() {
                   ]}
                 />
               </Card>
-              <SpendCost />
+              <SpendCost dateRange={dateRange} />
               <Target />
             </Space>
           </Col>

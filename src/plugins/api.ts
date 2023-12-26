@@ -177,6 +177,14 @@ const $api = {
         .then((res) => res)
         .catch((err) => errorHandler(err));
     },
+    compareCost: async (from: string, end: string) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .get(`/api/charts/compare_cost`, { params: { from, end } })
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
   },
   reports: {
     getYearReports: async (year: number) => {

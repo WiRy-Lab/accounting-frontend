@@ -41,7 +41,7 @@ const DashBoardLayout = ({
         collapsible
         collapsed={collapsed}
       >
-        <div className="demo-logo-vertical" />
+        <div className="logo-vertical" />
         <SideBar clickCallBack={closeSideBar} />
       </Sider>
       <Layout>

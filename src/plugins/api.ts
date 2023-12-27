@@ -4,6 +4,7 @@ import { getSession, signOut } from 'next-auth/react';
 import { AccountingCreateDTO, AccountingFilterDTO } from '@/dto/AccountingDTO';
 import { LoginDTO, RegisterDTO } from '@/dto/AuthDTO';
 import { CategoryCreateDTO, CategoryDTO } from '@/dto/CategoryDTO';
+import { MonthTargetDTO } from '@/dto/SettingDTO';
 
 const axiosWithAuth = async () => {
   if (localStorage.getItem('token')) {
@@ -204,9 +205,16 @@ const $api = {
         .catch((err) => errorHandler(err));
     },
   },
-  // settings: {
+  settings: {
+    setMonthTarget: async (data: MonthTargetDTO) => {
+      const axiosAuth = await axiosWithAuth();
 
-  // }
+      return axiosAuth
+        .post(`/api/settings/month_target`, data)
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
+  },
 };
 
 export default $api;

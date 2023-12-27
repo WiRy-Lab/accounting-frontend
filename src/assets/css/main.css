@@ -2,11 +2,16 @@ body{
     margin: 0;
 }
 
-.demo-logo-vertical {
-    height: 32px;
-    margin: 16px;
-    background: rgba(255,255,255,.2);
+.logo-vertical {
+    height: 100px;
+    width: calc(100% - 20px);
+    margin: 5px 10px;
+    /* background: rgba(255,255,255,.2); */
     border-radius: 6px;
+    background-image: url("/images/logo.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 
 /* .accounting-list-table > .ant-space-item:first-child{

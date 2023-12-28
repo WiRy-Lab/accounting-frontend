@@ -48,8 +48,8 @@ const $api = {
     register: (data: RegisterDTO) =>
       axios
         .post('/api/auth/register', data)
-        .then((res) => res.data)
-        .catch((err) => err.response),
+        .then((res) => res)
+        .catch((err) => err),
     me: async () => {
       const axiosAuth = await axiosWithAuth();
 

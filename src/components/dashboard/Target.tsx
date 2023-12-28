@@ -106,7 +106,7 @@ const Target = () => {
         datasets: [
           {
             label: '收入',
-            data: [...resultData.income].reverse(),
+            data: [...resultData.income],
             backgroundColor: [
               'rgba(0, 238, 118, 0.2)',
               'rgba(243, 245, 247, 0.6)',

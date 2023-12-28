@@ -5,4 +5,11 @@ type MonthTargetDTO = {
   outcome: number;
 };
 
-export type { MonthTargetDTO };
+type SaveMoneyTarget = {
+  category: number;
+  target: number;
+  from_date: string;
+  end_date: string;
+};
+
+export type { MonthTargetDTO, SaveMoneyTarget };

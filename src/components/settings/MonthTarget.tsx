@@ -11,7 +11,7 @@ type FromValues = {
   outcome: number;
 };
 
-const SettingsIndex = () => {
+const MonthTarget = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -136,4 +136,4 @@ const SettingsIndex = () => {
   );
 };
 
-export default SettingsIndex;
+export default MonthTarget;

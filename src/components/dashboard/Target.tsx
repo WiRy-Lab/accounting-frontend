@@ -50,6 +50,7 @@ const innerLabel = {
 
 const options = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     tooltip: {
       enabled: false,

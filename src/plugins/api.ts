@@ -4,7 +4,7 @@ import { getSession, signOut } from 'next-auth/react';
 import { AccountingCreateDTO, AccountingFilterDTO } from '@/dto/AccountingDTO';
 import { LoginDTO, RegisterDTO } from '@/dto/AuthDTO';
 import { CategoryCreateDTO, CategoryDTO } from '@/dto/CategoryDTO';
-import { MonthTargetDTO } from '@/dto/SettingDTO';
+import { MonthTargetDTO, SaveMoneyTarget } from '@/dto/SettingDTO';
 
 const axiosWithAuth = async () => {
   if (localStorage.getItem('token')) {
@@ -186,6 +186,14 @@ const $api = {
         .then((res) => res)
         .catch((err) => errorHandler(err));
     },
+    saveTarget: async (category_id: number) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .get(`/api/charts/save_target/${category_id}`)
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
   },
   reports: {
     getYearReports: async (year: number) => {
@@ -233,6 +241,22 @@ const $api = {
 
       return axiosAuth
         .get(`/api/settings/month_target/${year}/${month}`)
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
+    getSaveMoneyTarget: async (category_id: number) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .get(`/api/settings/save_money_target/category/${category_id}`)
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
+    setSaveMoneyTarget: async (data: SaveMoneyTarget) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .post(`/api/settings/save_money_target`, data)
         .then((res) => res)
         .catch((err) => errorHandler(err));
     },

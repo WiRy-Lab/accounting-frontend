@@ -4,6 +4,7 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 
 import MonthCostChart from '@/components/dashboard/MonthCostChart';
+import SaveMoneyChart from '@/components/dashboard/SaveMoneyChart';
 import SpendCost from '@/components/dashboard/SpendCost';
 import Target from '@/components/dashboard/Target';
 import TypeCostChart from '@/components/dashboard/TypeCostChart';
@@ -77,6 +78,9 @@ export default function Home() {
               </Col>
               <Col span={24}>
                 <Target />
+              </Col>
+              <Col span={24}>
+                <SaveMoneyChart />
               </Col>
             </Row>
           </Col>

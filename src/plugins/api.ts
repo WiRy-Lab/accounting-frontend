@@ -204,6 +204,20 @@ const $api = {
         .then((res) => res)
         .catch((err) => errorHandler(err));
     },
+    getMonthlyAnalysis: async ({
+      year,
+      month,
+    }: {
+      year: number;
+      month: number;
+    }) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .get(`/api/reports/get_monthly_analysis/${year}/${month}`)
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
   },
   settings: {
     setMonthTarget: async (data: MonthTargetDTO) => {

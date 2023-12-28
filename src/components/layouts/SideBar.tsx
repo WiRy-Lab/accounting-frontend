@@ -3,6 +3,7 @@ import {
   DashboardOutlined,
   FileExcelOutlined,
   FolderOpenOutlined,
+  QuestionCircleFilled,
   SettingOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
@@ -41,6 +42,11 @@ const menuItems: MenuItem[] = [
     key: '/category',
     icon: <FolderOpenOutlined />,
     label: '類別管理',
+  },
+  {
+    key: '/advice',
+    icon: <QuestionCircleFilled />,
+    label: '財務建議',
   },
   {
     key: '/report',

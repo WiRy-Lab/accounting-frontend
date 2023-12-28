@@ -141,7 +141,7 @@ const Target = () => {
   return (
     <>
       {contextHolder}
-      <Card>
+      <Card style={{ height: '100%' }}>
         <Title level={4} style={{ marginTop: '0' }}>
           當月達成目標
         </Title>

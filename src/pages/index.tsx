@@ -1,4 +1,4 @@
-import { Card, Col, DatePicker, Row, Space, Typography } from 'antd';
+import { Card, Col, DatePicker, Row, Typography } from 'antd';
 import dayjs from 'dayjs';
 import Head from 'next/head';
 import React, { useState } from 'react';
@@ -52,27 +52,33 @@ export default function Home() {
       </Head>
       <main>
         <Row gutter={[16, 16]}>
-          <Col span={24} md={16} style={{ height: 'inherit' }}>
+          <Col span={24} md={16}>
             <MonthCostChart dateRange={dateRange} />
           </Col>
-          <Col span={24} md={8} style={{ height: 'inherit ' }}>
-            <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-              <Card>
-                <Title level={4} style={{ marginTop: '0' }}>
-                  篩選區間
-                </Title>
-                <DatePicker.RangePicker
-                  onChange={handleFilter}
-                  style={{ width: '100%' }}
-                  defaultValue={[
-                    dayjs().startOf('month'),
-                    dayjs().endOf('month'),
-                  ]}
-                />
-              </Card>
-              <SpendCost dateRange={dateRange} />
-              <Target />
-            </Space>
+          <Col span={24} md={8}>
+            <Row gutter={[16, 16]} style={{ height: '100%' }}>
+              <Col span={24}>
+                <Card>
+                  <Title level={4} style={{ marginTop: '0' }}>
+                    篩選區間
+                  </Title>
+                  <DatePicker.RangePicker
+                    onChange={handleFilter}
+                    style={{ width: '100%' }}
+                    defaultValue={[
+                      dayjs().startOf('month'),
+                      dayjs().endOf('month'),
+                    ]}
+                  />
+                </Card>
+              </Col>
+              <Col span={24}>
+                <SpendCost dateRange={dateRange} />
+              </Col>
+              <Col span={24}>
+                <Target />
+              </Col>
+            </Row>
           </Col>
           <Col span={24} style={{ height: 'inherit ' }}>
             <TypeCostChart dateRange={dateRange} />

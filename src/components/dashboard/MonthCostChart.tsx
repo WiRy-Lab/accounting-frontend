@@ -1,4 +1,4 @@
-import { Card, message, Typography } from 'antd';
+import { Card, Flex, message, Space, Statistic, Typography } from 'antd';
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -122,10 +122,43 @@ const MonthCostChart = ({ dateRange: { from, end } }: Props) => {
     <>
       {contextHolder}
       <Card style={{ height: '100%' }}>
-        <Title level={4} style={{ margin: 0 }}>
-          區間內消費曲線
-        </Title>
-        <Line options={options} data={chartData} />
+        <Space
+          direction="vertical"
+          size={16}
+          style={{ display: 'flex', width: '100%' }}
+        >
+          <Flex gap="large" align="center" justify="space-between">
+            <Title level={3} style={{ margin: 0 }}>
+              區間內消費曲線
+            </Title>
+            <Flex gap="large">
+              <Statistic
+                title="區間收入 (TWD)"
+                prefix="$"
+                value={chartData.datasets[0]?.data.reduce(
+                  (partialSum, a) => partialSum + a,
+                  0
+                )}
+                valueStyle={{
+                  color: '#3f8600',
+                }}
+              />
+              <Statistic
+                title="區間支出 (TWD)"
+                prefix="$"
+                value={chartData.datasets[1]?.data.reduce(
+                  (partialSum, a) => partialSum + a,
+                  0
+                )}
+                valueStyle={{
+                  color: '#cf1322',
+                }}
+              />
+            </Flex>
+          </Flex>
+
+          <Line options={options} data={chartData} />
+        </Space>
       </Card>
     </>
   );

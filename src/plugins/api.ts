@@ -214,6 +214,14 @@ const $api = {
         .then((res) => res)
         .catch((err) => errorHandler(err));
     },
+    getMonthTarget: async (year: number, month: number) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .get(`/api/settings/month_target/${year}/${month}`)
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
   },
 };
 

@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 
+import MonthTarget from '@/components/settings/MonthTarget';
 import MainLayout from '@/layouts/MainLayout';
 
 const SettingsIndex = () => {
@@ -10,7 +11,7 @@ const SettingsIndex = () => {
         <title>設定</title>
       </Head>
       <main>
-        <h1>設定</h1>
+        <MonthTarget />
       </main>
     </MainLayout>
   );

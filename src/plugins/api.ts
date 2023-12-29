@@ -58,6 +58,14 @@ const $api = {
         .then((res) => res)
         .catch((err) => errorHandler(err));
     },
+    update: async (data: RegisterDTO) => {
+      const axiosAuth = await axiosWithAuth();
+
+      return axiosAuth
+        .put('/api/auth/me', data)
+        .then((res) => res)
+        .catch((err) => errorHandler(err));
+    },
   },
   accounting: {
     all: async (filter: AccountingFilterDTO = {}) => {

@@ -26,7 +26,8 @@
     "react-dom": "18.2.0",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@next/react-refresh-utils": "^13.4.1",

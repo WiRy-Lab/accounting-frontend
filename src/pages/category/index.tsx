@@ -38,7 +38,6 @@ const AccountTypeIndex = () => {
       title: '名稱',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <Button type="link">{text}</Button>,
     },
     {
       title: 'Action',

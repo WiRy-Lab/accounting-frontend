@@ -53,9 +53,9 @@ const SpendCost = ({ dateRange: { from, end } }: Props) => {
   return (
     <>
       {contextHolder}
-      <Row gutter={16}>
-        <Col span={12}>
-          <Card bordered={false}>
+      <Card bordered={false}>
+        <Row gutter={16}>
+          <Col span={12}>
             <Statistic
               title="區間收入成長率"
               value={data?.income_change <= -100.0 ? '∞' : data?.income_change}
@@ -72,10 +72,8 @@ const SpendCost = ({ dateRange: { from, end } }: Props) => {
               }
               suffix="%"
             />
-          </Card>
-        </Col>
-        <Col span={12}>
-          <Card bordered={false}>
+          </Col>
+          <Col span={12}>
             <Statistic
               title="區間支出成長率"
               value={
@@ -94,9 +92,17 @@ const SpendCost = ({ dateRange: { from, end } }: Props) => {
               }
               suffix="%"
             />
-          </Card>
-        </Col>
-      </Row>
+          </Col>
+          <Col span={24}>
+            <div style={{ marginTop: '10px', color: '#8c8c8c' }}>
+              <span>比較區間: </span>
+              <span style={{ marginLeft: '5px' }}>
+                {data.prev_from} ~ {data.prev_end}
+              </span>
+            </div>
+          </Col>
+        </Row>
+      </Card>
     </>
   );
 };

@@ -50,7 +50,7 @@ const innerLabel = {
 
 const options = {
   responsive: true,
-  aspectRatio: 1.4,
+  // aspectRatio: 1.4,
   // maintainAspectRatio: false,
   plugins: {
     tooltip: {
@@ -78,6 +78,14 @@ const Target = () => {
   const [chartData, setChartData] = React.useState<DoughnutData[]>([]);
 
   const [messageApi, contextHolder] = message.useMessage();
+
+  const [targetAmount, setTargetAmount] = React.useState<{
+    target_income: number;
+    target_outcome: number;
+  }>({
+    target_income: 0,
+    target_outcome: 0,
+  });
 
   const handleMonthChange = (date: dayjs.Dayjs | null) => {
     if (date !== null) {
@@ -135,6 +143,10 @@ const Target = () => {
       });
 
       setChartData(processData);
+      setTargetAmount({
+        target_income: resultData.target_income,
+        target_outcome: resultData.target_outcome,
+      });
     };
 
     fetchData();
@@ -153,12 +165,32 @@ const Target = () => {
           onChange={handleMonthChange}
           defaultValue={dayjs()}
         />
-        <Row>
+        <Row justify="space-around" align="middle">
           {chartData.map((item: DoughnutData) => (
-            <Col span={24} md={12} key={item.datasets[0].label}>
+            <Col span={24} md={8} key={item.datasets[0].label}>
               <Doughnut data={item} options={options} plugins={[innerLabel]} />
             </Col>
           ))}
+          <Col span={24} md={8} key="target-text">
+            <div style={{ marginLeft: '10px' }}>
+              <span>收入目標金額: </span>
+              <span style={{ color: '#52c41a', marginLeft: '5px' }}>
+                <br />
+                {targetAmount.target_income
+                  ? `$${targetAmount.target_income ?? 0}`
+                  : '未設定'}
+              </span>
+              <div style={{ marginTop: '20px' }}>
+                <span>支出目標限額: </span>
+                <span style={{ color: '#ff4d4f', marginLeft: '5px' }}>
+                  <br />
+                  {targetAmount.target_outcome
+                    ? `$${targetAmount.target_outcome ?? 0}`
+                    : '未設定'}
+                </span>
+              </div>
+            </div>
+          </Col>
         </Row>
       </Card>
     </>
